@@ -3,9 +3,11 @@ import { ApolloServerPluginLandingPageGraphQLPlayground } from "apollo-server-co
 
 const port = 4040;
 
-const typeDefs = `type Query {
+const typeDefs = `
+  type Query {
     info: String!
-}`;
+  }
+  `;
 
 const resolvers = {
   Query: {

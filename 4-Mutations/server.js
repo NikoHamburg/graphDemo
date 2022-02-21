@@ -2,18 +2,32 @@ import express from "express";
 import { ApolloServer } from "apollo-server-express";
 import { ApolloServerPluginLandingPageGraphQLPlayground } from "apollo-server-core";
 import mongoose from "mongoose";
+import cors from "cors";
 
 const port = 4040;
 const mongoURI = "mongodb://192.168.1.233:27017/bookstore";
 
-const typeDefs = `type Query {
-  customers: [Person]
-}
+const typeDefs = `
+  type Query {
+    customers: [Person]
+  }
+
   type Person {
-  firstName: String!
-  lastName: String!
-  email: String!
-}`;
+    firstName: String!
+    lastName: String!
+    email: String!
+  }
+
+  input CreateCustomerInput {
+    firstName: String!
+    lastName: String!
+    email: String!
+  }
+
+  type Mutation {
+    createCustomer(input: CreateCustomerInput): Person
+  }
+`;
 
 const PersonSchema = new mongoose.Schema(
   {
@@ -32,9 +46,17 @@ const resolvers = {
       return await Person.find();
     },
   },
+  Mutation: {
+    createCustomer: async (_, { input }) => {
+      return await Person.create(input);
+    },
+  },
 };
 
 const app = express();
+
+app.use(cors());
+app.use(express.json());
 
 const server = new ApolloServer({
   typeDefs,

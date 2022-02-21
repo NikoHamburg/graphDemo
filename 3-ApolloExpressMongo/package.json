@@ -1,0 +1,13 @@
+{
+  "name": "graphDemo",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "type": "module",
+  "dependencies": {
+    "apollo-server-express": "^3.6.3",
+    "express": "^4.17.3",
+    "graphql": "^16.3.0",
+    "mongoose": "^6.2.2"
+  }
+}

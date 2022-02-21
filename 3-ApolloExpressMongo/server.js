@@ -6,14 +6,17 @@ import mongoose from "mongoose";
 const port = 4040;
 const mongoURI = "mongodb://192.168.1.233:27017/bookstore";
 
-const typeDefs = `type Query {
-  customers: [Person]
-}
+const typeDefs = `
+  type Query {
+    customers: [Person]
+  }
+
   type Person {
-  firstName: String!
-  lastName: String!
-  email: String!
-}`;
+    firstName: String!
+    lastName: String!
+    email: String!
+  }
+  `;
 
 const PersonSchema = new mongoose.Schema(
   {

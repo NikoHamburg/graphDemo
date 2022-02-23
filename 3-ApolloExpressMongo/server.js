@@ -8,7 +8,7 @@ const mongoURI = "mongodb://192.168.1.233:27017/bookstore";
 
 const typeDefs = `
   type Query {
-    customers: [Person]
+    customers(limit: Int): [Person]
   }
 
   type Person {
@@ -31,8 +31,8 @@ const Person = mongoose.model("Person", PersonSchema);
 
 const resolvers = {
   Query: {
-    customers: async () => {
-      return await Person.find();
+    customers: async (_, { limit }) => {
+      return await Person.find().limit(limit);
     },
   },
 };
